@@ -25,7 +25,7 @@ function checkFileMissing($fileName) {
  * @param $value
  */
 function cleanInput($value) {
-	return preg_replace("/[^a-zA-Z0-9 ]/", "", $value);
+	return preg_replace("/[^a-zA-Z0-9\-\. ]/", "", $value);
 }
 
 /**

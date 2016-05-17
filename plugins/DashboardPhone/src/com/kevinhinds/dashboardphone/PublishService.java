@@ -9,6 +9,9 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import android.os.StrictMode;
+import android.util.Log;
+
 /**
  * publish phone notifications to Settings.remoteDashboardHost
  * 
@@ -26,26 +29,33 @@ public class PublishService {
 	 */
 	public JSONObject pushNotification(String pack, String ticker, String title, String text) {
 
+		// let's keep it simple, no additional threading for these small HTTP POSTs
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+		
+		// for the list of ignored applications return null and not push to remote server
+		for (String ignoredMessage : Settings.ignoredNotifications) {
+			if (title.contains(ignoredMessage)) {
+				return null;
+			}
+		}
+
 		// build JSON string to HTTP Post to remote server
-		DefaultHttpClient httpclient = new DefaultHttpClient();		
-		HttpPost httppostreq = new HttpPost(Settings.remoteDashboardHost);
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppostreq = new HttpPost("http://" + Settings.remoteDashboardHost + "/message/set");
 		StringEntity se;
 		String responseText = null;
-		JSONObject jsonObjSend = new JSONObject();
 		JSONObject jsonObjRecieved = new JSONObject();
 		try {
-			jsonObjSend.put("Package", pack);
-			jsonObjSend.put("Ticker", ticker);
-			jsonObjSend.put("Title", title);
-			jsonObjSend.put("Text", text);
-			se = new StringEntity(jsonObjSend.toString());
+			se = new StringEntity(title + " - " +  text);
 			se.setContentType("application/json;charset=UTF-8");
 			se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
 			httppostreq.setEntity(se);
 			HttpResponse httpresponse = httpclient.execute(httppostreq);
 			responseText = EntityUtils.toString(httpresponse.getEntity());
 			jsonObjRecieved = new JSONObject(responseText);
-		} catch (Exception e1) {
+		} catch (Exception e) {
+			Log.d("Could not HTTP POST", e.getMessage());
 		}
 		return jsonObjRecieved;
 	}

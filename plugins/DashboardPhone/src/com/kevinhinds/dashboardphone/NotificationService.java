@@ -40,8 +40,8 @@ public class NotificationService extends NotificationListenerService {
 		Log.i("Ticker", ticker);
 		Log.i("Title", title);
 		Log.i("Text", text);
-		
-		// publish over to your server Settings.remoteDashboardHost with the RetroDashboard listener installed 
+
+		// publish over to your server Settings.remoteDashboardHost with the RetroDashboard listener installed
 		PublishService ps = new PublishService();
 		ps.pushNotification(pack, ticker, title, text);
 
@@ -50,7 +50,7 @@ public class NotificationService extends NotificationListenerService {
 		msgrcv.putExtra("ticker", ticker);
 		msgrcv.putExtra("title", title);
 		msgrcv.putExtra("text", text);
-		
+
 		if (id != null) {
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
 			id.compress(Bitmap.CompressFormat.PNG, 100, stream);
