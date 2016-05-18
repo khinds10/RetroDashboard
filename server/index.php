@@ -13,7 +13,7 @@
  * check if a file is missing then create it if needed
  * @param $fileName
  */
-function checkFileMissing($fileName) {
+function createFileIfMissing($fileName) {
 	if (!file_exists($fileName)) {
 		touch($fileName);
 	}
@@ -34,7 +34,9 @@ function cleanInput($value) {
  * @param $id
  */
 function generateFileById($fileNameTemplate, $id) {
-	return str_replace("{id}", $id, $fileNameTemplate);
+    $fileName = str_replace("{id}", $id, $fileNameTemplate);
+    createFileIfMissing($fileName);
+	return $fileName;
 }
 
 /**
@@ -99,6 +101,13 @@ if (isset($matches[0])) {
 	$idNumber = trim($matches[0], '/');
 }
 
+// if we have a 'all' matched in the URL means, we should get ALL results for flag/reading
+$getAll = false;
+preg_match('/all/', $urlParts['path'], $matches);
+if (isset($matches[0])) {
+	$getAll = true;
+}
+
 // get action value 'set'/'unset' for reading or flag if present
 preg_match('/\/(set)|(unset)\/?/', $urlParts['path'], $matches);
 $action = '';
@@ -111,7 +120,7 @@ switch ($dashboardOption) {
 
     case 'message':
     
-	    checkFileMissing($messageFileName);
+	    createFileIfMissing($messageFileName);
 		if ($action == 'set') {
 			file_put_contents($messageFileName, cleanInput(file_get_contents("php://input")));
 			$response->message = 'message contents has been updated';
@@ -122,9 +131,9 @@ switch ($dashboardOption) {
         
     case 'reading':
     
+        // get/set individual reading
     	if (!empty($idNumber)) {
     		$readingsFile = generateFileById($readingsFilesNames, $idNumber);
-			checkFileMissing($readingsFile);
 			if ($action == 'set') {
 			
 				// keep a list of the last "readingsAverageLimit" number of values to later get the average of them
@@ -136,23 +145,41 @@ switch ($dashboardOption) {
 			}
 			$response->message = getAverageOrDefault($readingsFile, $readingsAverageLimit, '0');
 		}
+		
+        // get all readings
+		if ($getAll) {
+    		$response->message = array();
+		    for ($count=1; $count<5; $count++) {
+                $readingsFile = generateFileById($readingsFilesNames, $count);
+                $response->message[] = getAverageOrDefault($readingsFile, $readingsAverageLimit, '0');
+		    }
+		}
         break;
 
     case 'flag':
     
+        // get/set individual flag
     	if (!empty($idNumber)) {
     		$flagFile = generateFileById($flagFilesNames, $idNumber);
-			checkFileMissing($flagFile);
-			
+    		
 			// set boolean value of true/false based on incoming request URL
 			if ($action == 'set' || $action == 'unset') {
-				$flagValue = ($action == 'set') ? 'true': 'false';
+				$flagValue = ($action == 'set') ? '1' : '0';
 				file_put_contents($flagFile, $flagValue);
 				$response->message = 'flag has been set';
 				break;
 			}
-			$response->message = getValueOrDefault($flagFile, 'false');
+			$response->message = getValueOrDefault($flagFile, '0');
 		}
-        break; 
+		
+        // get all flags
+		if ($getAll) {
+    		$response->message = array();
+		    for ($count=1; $count<5; $count++) {
+                $flagFile = generateFileById($flagFilesNames, $count);
+                $response->message[] = getValueOrDefault($flagFile, '0');
+		    }
+		}
+        break;
 }
 print json_encode($response);

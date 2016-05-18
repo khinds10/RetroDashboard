@@ -14,6 +14,9 @@ The following criteria will explain how to get information to output on your Ret
 	http://myhost/flag/{id}
 		(get the current boolean status of the flag by integer: {id})
 
+	http://myhost/flag/all
+		(get all the current boolean status of all the flags as an array)
+
 	http://myhost/flag/{id}/set
 		(set the current boolean status to 'true' for the flag by integer: {id})
 
@@ -23,10 +26,13 @@ The following criteria will explain how to get information to output on your Ret
 	http://myhost/reading/{id}
 		(get the current averaged value for the reading by integer: {id})
 
+	http://myhost/reading/all
+		(get the current averaged value for all the readings as an array)
+
 	http://myhost/reading/{id}/set
 		(HTTP POST a raw numeric value to this URL to add a new value to the current calculated average)  
 			-- see below for how many values in total are compiled to the average value
-	
+
 ## Configuation
 
 The 'readings' values are calculated as averages of a certain number of recent persisted reading numeric values. Set the following constant to how many of the most recent readings should be included to produce the average.
