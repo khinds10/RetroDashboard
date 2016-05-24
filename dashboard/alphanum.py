@@ -39,45 +39,45 @@ initialize(display3)
 initialize(display4)
 
 def showNewMessage(message):
-	'''Scroll a message across the display'''
-	messageBuffer = numberLEDCharacters * " "
-	message = messageBuffer + message.upper() + messageBuffer
-	messageLength = len(message)
-	showMessageIteration = 0
-	pos = 0
-	while (showMessageIteration < (showMessageCount * messageLength)):
+    '''Scroll a message across the display'''
+    messageBuffer = numberLEDCharacters * " "
+    message = messageBuffer + message.upper() + messageBuffer
+    messageLength = len(message)
+    showMessageIteration = 0
+    pos = 0
+    while (showMessageIteration < (showMessageCount * messageLength)):
         writeMessage(display1, message[pos:pos+4])
         writeMessage(display2, message[pos+4:pos+8])
         writeMessage(display3, message[pos+8:pos+12])
-        writeMessage(display4, message[pos+12:pos+16])		
-		pos += 1
-		showMessageIteration += 1
-		if pos > len(message) - numberLEDCharacters:
-			pos = 0
-		time.sleep(0.175)
+        writeMessage(display4, message[pos+12:pos+16])        
+        pos += 1
+        showMessageIteration += 1
+        if pos > len(message) - numberLEDCharacters:
+            pos = 0
+        time.sleep(0.175)
 
 def showStaticMessage(message):
-	'''show static waiting message'''
-	writeMessage(display1, message[0:4])
-	writeMessage(display2, message[4:8])
-	writeMessage(display3, message[8:12])
-	writeMessage(display4, message[12:16])
+    '''show static waiting message'''
+    writeMessage(display1, message[0:4])
+    writeMessage(display2, message[4:8])
+    writeMessage(display3, message[8:12])
+    writeMessage(display4, message[12:16])
 
 # Begin new phone notifications listener
 currentMessage = ''
 staticMessageCounter = 0
 while True:
-	phoneDashboardInfo = json.loads(unicode(subprocess.check_output(['curl', "http://" + dashboardServer + "/message"]), errors='ignore'))
-	message = str(phoneDashboardInfo["message"])
-	if (message != currentMessage):
-		currentMessage = message
-		showNewMessage(currentMessage)
-	else :
-		staticMessage = staticMessageCounter * " "
-		staticMessage = staticMessage + "-"
-		staticMessage = staticMessage + ((numberLEDCharacters - staticMessageCounter) * " ")
-		showStaticMessage(staticMessage)
-	staticMessageCounter += 1
-	if (staticMessageCounter >= numberLEDCharacters):
-		staticMessageCounter = 0
-	time.sleep(3)
+    phoneDashboardInfo = json.loads(unicode(subprocess.check_output(['curl', "http://" + dashboardServer + "/message"]), errors='ignore'))
+    message = str(phoneDashboardInfo["message"])
+    if (message != currentMessage):
+        currentMessage = message
+        showNewMessage(currentMessage)
+    else:
+        staticMessage = staticMessageCounter * " "
+        staticMessage = staticMessage + "-"
+        staticMessage = staticMessage + ((numberLEDCharacters - staticMessageCounter) * " ")
+        showStaticMessage(staticMessage)
+    staticMessageCounter += 1
+    if (staticMessageCounter >= numberLEDCharacters):
+        staticMessageCounter = 0
+    time.sleep(2)
