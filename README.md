@@ -114,15 +114,19 @@ Add the following lines to have your raspberrypi automatically connect to your h
 Raspberry PI
 
 0.56" 4-Digit 7-Segment Display w/I2C Backpack (x4)
+
 ![7 Segment Display](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/7-segment.jpg "7 Segment Display")
 
 Quad Alphanumeric Display - 0.54" Digits w/ I2C Backpack (x4)
+
 ![14 Segment Display](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/14-segment.jpg "14 Segment Display")
 
 4 LEDs
+
 ![LED Lights](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/led.jpg "LED Lights")
 
 Wooden Keepsake Box
+
 ![Keepsake Box](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/keepsake.jpg "Keepsake Box")
 
 Dremel Tool with small saw blade
@@ -163,6 +167,7 @@ For each display in the dashboard ALL of the D and C pins need to be connected t
 
 ##6 Finished
 You're now ready to run the Dashboard!
+
 ![Finished](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/6-final.jpg "Finished")
 
 
