@@ -121,7 +121,7 @@ Quad Alphanumeric Display - 0.54" Digits w/ I2C Backpack (x4)
 
 ![14 Segment Display](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/14-segment.jpg "14 Segment Display")
 
-4 LEDs
+LED Lights (x4)
 
 ![LED Lights](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/led.jpg "LED Lights")
 
@@ -140,9 +140,14 @@ Measure and cut one long 4 - 14 segment display long hole near the top, 4 - 7 se
 ![Measure and Cut](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/1-measure-cut.jpg "Measure and Cut")
 
 ##2 Solder Unique Display Jumpers
-For each of the I2C backpack displays you must solder the jumpers on the back in the all the possible combinations to have your RaspberriPI I2C interface to recognize each display with a unique address.  
+*NOTE: All the I2C backpacks must be soldered on the back of each of the displays, the backpacks come with the display and must all be soldered on first.*
+
+For each of the I2C backpack displays you must solder the jumpers on the back in the **all the possible combinations** to have your RaspberriPI I2C interface to recognize each display with a **unique address**.  
 
 Leave the first display with no jumper soldered, the 2nd with the farthest right soldered, the 3rd with only the middle soldered and so on...  Eventually you'll have to solder jumpers in all the combinations of 2 at a time connected and the final display with all 3 jumpers soldered to be connected.
+
+*There's a total of 3 pins so you should have a total combination of 8 unique combinations.*
+
 ![Solder Unique Display Jumpers](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/2-displays.jpg "Solder Unique Display Jumpers")
 
 ##3 Mount Displays in box
@@ -170,5 +175,62 @@ You're now ready to run the Dashboard!
 
 ![Finished](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/6-final.jpg "Finished")
 
+##7 Install Central Webhost 
+This project includes a small PHP server that you can host on almost any low cost linux webhost.  From this project copy the files from the "server/" folder and place them on your PHP webhost and remember the domain name.  
+> For our example it will be installed on a hypothetical host with the public domain name of: www.mydashboard.com
+
+The **server/README.md** file contains all the details about how to get/set message values, measurement values and flag values to the PHP server.  These values will then be listened for on the Retrodashboard to display to you as output via the alphanumeric / numeric and led lights turning on and off.
 
 
+##8 Install & Run Dashboard Drivers
+
+Start up your RaspberryPi and make sure the I2C bus recognizes all your connected 7/14 segment displays. 
+*[each display is given a unique address described above by how you solder each display's jumpers in different combinations]*  
+
+If you have all 8 displays with jumpers soldered in all 8 combinations, you should have the following output for the `i2cdetect` command:
+
+`sudo i2cdetect -y 1`
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+70: 70 71 72 73 74 75 76 77   
+
+*(in this case all the displays numbered 0 to 7 are being recognized on the PI as I2C available devices)*
+
+**Install all 3 python driver scripts from this project (in the dashboard/ folder) to your home directory of the RaspberryPI. **
+So your PI has the following home directory files:
+
+`cd ~`
+`ls -lh`
+-rwxrwxr-x 1 pi pi 2.8K May 21 01:56 alphanum.py
+-rwxrwxr-x 1 pi pi 2.2K May 21 01:54 dashboard.py
+-rwxrwxr-x 1 pi pi 1.4K May 21 02:36 indicators.py
+
+Edit each python scripts variable to reference your running PHP data server (see Step 7)
+
+	dashboardServer = 'MY-SERVER-HERE.com'
+
+is changed to:
+
+	dashboardServer = 'www.mydashboard.com'
+
+Now that your 3 scripts are pointing to your own data server you're now ready to run the dashboard to display your output.
+
+Run the following commands to start your Dashboard displays.
+
+$  `nohup python indicators.py > indicators.out &`
+
+$  `nohup python dashboard.py > dashboard.out &`
+
+$  `nohup python alphanum.py > alphanum.out &`
+
+This will allow you to logout of your PI and have the python drivers remain running as a background process, if they do fail for any reason, the error message will be found in the [.out] from the commands above.
+
+##9 Running Plugins for Populating Display Data
+
+The **'plugins/'** folder contains plugins to get started populating the central server with information that the dashboard will display as output.  
