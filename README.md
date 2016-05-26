@@ -190,15 +190,25 @@ Start up your RaspberryPi and make sure the I2C bus recognizes all your connecte
 If you have all 8 displays with jumpers soldered in all 8 combinations, you should have the following output for the `i2cdetect` command:
 
 `sudo i2cdetect -y 1`
+     
      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+     
 00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+
 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+
 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+
 30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+
 40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+
 50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+
 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+
 70: 70 71 72 73 74 75 76 77   
+
 
 *(in this case all the displays numbered 0 to 7 are being recognized on the PI as I2C available devices)*
 
