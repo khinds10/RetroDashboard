@@ -162,9 +162,11 @@ Using the Dremel tool like I did or a small saw, cut a hole in the right side of
 
 Each of the 14 segment alpha numeric displays needs to have a connection to the RaspberryPI GND, 5V and 3V pins.  The 7 segment display only needs connectivity to the GND and 5V pins.  
 
+![Wiring Diagram](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/wiring-diagram.png "Wiring Diagram")
+
 I've used standard jumper wires to connect to all the pins on the display / RaspberryPI pins and grouped the common connections (all the GND wires, 5V wires) with a wirenut.
 
-Each LED light needs to have a 220 ohm resister solder to the positive (long) pin and connect each positive LED pin to the corresponding GPIO pins on the PI, I've used GPIO pins 18, 13, 15 and 16.
+Each LED light needs to have a 270 ohm resister solder to the ground (short) pin and connect each positive LED pin to the corresponding GPIO pins on the PI, I've used GPIO pins 18, 13, 15 and 16.
 
 For each display in the dashboard ALL of the D and C pins need to be connected to the SCL and SDA pins on the PI.
 
@@ -191,23 +193,23 @@ If you have all 8 displays with jumpers soldered in all 8 combinations, you shou
 
 `sudo i2cdetect -y 1`
      
-     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
-     
-00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
-
-10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-
-20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-
-30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-
-40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-
-50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-
-60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-
-70: 70 71 72 73 74 75 76 77   
+>    0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+>     
+> 00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+> 
+> 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+> 
+> 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+> 
+> 30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+> 
+> 40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+> 
+> 50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+> 
+> 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+> 
+> 70: 70 71 72 73 74 75 76 77   
 
 
 *(in this case all the displays numbered 0 to 7 are being recognized on the PI as I2C available devices)*
