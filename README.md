@@ -154,6 +154,8 @@ Leave the first display with no jumper soldered, the 2nd with the farthest right
 Using a hot glue gun, mount the displays in the holes and glue them in place.  The LED lights may hold by friction if you drilled just the right sized hole, else use hot glue to hold them in place as well.
 ![Mount Displays](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/3-mount.jpg "Mount Displays")
 
+**NOTE: I have written down on the back of the box cover the HEX addresses x70 - x77 that each display has based on the soldering jumpers (see section #2)**
+
 ##4 Cut RaspberryPI Access hole / glue in place
 Using the Dremel tool like I did or a small saw, cut a hole in the right side of the wooden box, closest to the back of the box.  Place the RaspberryPI with the USB connectors facing out next to the hole so they're accessible after you've closed the box, and hot glue the RaspberryPI in place.
 ![Glue Raspberry PI](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/4-raspberry-pi.jpg "Glue Raspberry PI")
@@ -225,11 +227,35 @@ So your PI has the following home directory files:
 
 Edit each python scripts variable to reference your running PHP data server (see Step 7)
 
-	dashboardServer = 'MY-SERVER-HERE.com'
+	dashboardServer = 'CHANGE TO YOUR SERVER.com'
 
-is changed to:
+**alphanum.py**
+*Change the python code to reflect the HEX addresses each display is assigned based on the solder jumpers (see section #2)*
 
-	dashboardServer = 'www.mydashboard.com'
+	display1 = AlphaNum4.AlphaNum4(address=0x77, busnum=1)
+	display2 = AlphaNum4.AlphaNum4(address=0x76, busnum=1)
+	display3 = AlphaNum4.AlphaNum4(address=0x75, busnum=1)
+	display4 = AlphaNum4.AlphaNum4(address=0x73, busnum=1)
+	
+**dashboard.py**
+*Change the python code to reflect the HEX addresses each display is assigned based on the solder jumpers (see section #2)*
+
+	blueDisplay = SevenSegment.SevenSegment(address=0x70, busnum=1) 
+	yellowDisplay = SevenSegment.SevenSegment(address=0x71, busnum=1) 
+	greenDisplay = SevenSegment.SevenSegment(address=0x72, busnum=1) 
+	redDisplay = SevenSegment.SevenSegment(address=0x74, busnum=1)
+	
+**indicators.py**
+*Change the python code to reflect the GPIO pin numbers each LED is assigned based on your exact wiring (I've used GPIO pins: 13,15,16,18)
+
+	GPIO.setup(18, GPIO.OUT)
+	GPIO.output(18,GPIO.LOW)
+	GPIO.setup(13, GPIO.OUT)
+	GPIO.output(13,GPIO.LOW)
+	GPIO.setup(15, GPIO.OUT)
+	GPIO.output(15,GPIO.LOW)
+	GPIO.setup(16, GPIO.OUT)
+	GPIO.output(16,GPIO.LOW)
 
 Now that your 3 scripts are pointing to your own data server you're now ready to run the dashboard to display your output.
 
@@ -246,3 +272,55 @@ This will allow you to logout of your PI and have the python drivers remain runn
 ##9 Running Plugins for Populating Display Data
 
 The **'plugins/'** folder contains plugins to get started populating the central server with information that the dashboard will display as output.  
+
+**network-monitor.py**
+*This plugin will persist to the central data hub local network information such as your current upload and download speed in KBPS.*
+
+**Software Requirements:**
+
+ifstat is required
+
+	sudo apt-get install ifstat
+
+Configure and run the script:
+
+	dashboardServer = 'CHANGE TO YOUR SERVER.com'
+
+$  `nohup python network-monitor.py > network-monitor.out &`
+
+**server-monitor.py**
+*This plugin will persist to the central data hub local CPU usage and temperature statistics.*
+
+**Software Requirements:**
+
+psensor-server is required
+
+	sudo apt-get install psensor-server
+
+Configure the script:
+
+	dashboardServer = 'CHANGE TO YOUR SERVER.com'
+
+Run pensor server on port 17510, then run the server monitor script:
+
+$ `nohup psensor-server -p 17510 > /dev/null 2>&1`
+
+$  `nohup python server-monitor.py > server-monitor.out &`
+
+
+**DashboardPhone/**
+*This is a fully functional Android App that runs on your phone as a service and will persist to the central data hub notifications and indicator flags (coming soon).*
+
+**Configure the App**
+You need to update the settings.java file with your local settings
+
+		// host with the PHP server script installed for the RetroDashboard
+		public static String remoteDashboardHost = "CHANGE TO YOUR SERVER.com";
+	
+		// create a list of notifications (by title) your phone always produces but don't need to broadcast
+		public static String[] ignoredNotifications = new String[] { "Privacy Guard active", "Change keyboard" };
+
+**Build the App**
+
+Using an Android IDE, import the project locally and build it to an APK file.  Install the APK on your phone locally and it should start working for you.
+
