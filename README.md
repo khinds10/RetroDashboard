@@ -222,11 +222,9 @@ So your PI has the following home directory files:
 `cd ~`
 `ls -lh`
 
--rwxrwxr-x 1 pi pi 2.8K May 21 01:56 alphanum.py
-
--rwxrwxr-x 1 pi pi 2.2K May 21 01:54 dashboard.py
-
--rwxrwxr-x 1 pi pi 1.4K May 21 02:36 indicators.py
+    -rwxrwxr-x 1 pi pi 2.8K May 21 01:56 alphanum.py
+    -rwxrwxr-x 1 pi pi 2.2K May 21 01:54 dashboard.py
+    -rwxrwxr-x 1 pi pi 1.4K May 21 02:36 indicators.py
 
 
 Edit each python scripts variable to reference your running PHP data server (see Step 7)
@@ -234,6 +232,7 @@ Edit each python scripts variable to reference your running PHP data server (see
 	dashboardServer = 'CHANGE TO YOUR SERVER.com'
 
 **alphanum.py**
+
 *Change the python code to reflect the HEX addresses each display is assigned based on the solder jumpers (see section #2)*
 
 	display1 = AlphaNum4.AlphaNum4(address=0x77, busnum=1)
@@ -242,6 +241,7 @@ Edit each python scripts variable to reference your running PHP data server (see
 	display4 = AlphaNum4.AlphaNum4(address=0x73, busnum=1)
 	
 **dashboard.py**
+
 *Change the python code to reflect the HEX addresses each display is assigned based on the solder jumpers (see section #2)*
 
 	blueDisplay = SevenSegment.SevenSegment(address=0x70, busnum=1) 
@@ -250,6 +250,7 @@ Edit each python scripts variable to reference your running PHP data server (see
 	redDisplay = SevenSegment.SevenSegment(address=0x74, busnum=1)
 	
 **indicators.py**
+
 *Change the python code to reflect the GPIO pin numbers each LED is assigned based on your exact wiring (I've used GPIO pins: 13,15,16,18)
 
 	GPIO.setup(18, GPIO.OUT)
