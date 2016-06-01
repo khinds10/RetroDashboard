@@ -221,9 +221,13 @@ So your PI has the following home directory files:
 
 `cd ~`
 `ls -lh`
+
 -rwxrwxr-x 1 pi pi 2.8K May 21 01:56 alphanum.py
+
 -rwxrwxr-x 1 pi pi 2.2K May 21 01:54 dashboard.py
+
 -rwxrwxr-x 1 pi pi 1.4K May 21 02:36 indicators.py
+
 
 Edit each python scripts variable to reference your running PHP data server (see Step 7)
 
@@ -274,6 +278,7 @@ This will allow you to logout of your PI and have the python drivers remain runn
 The **'plugins/'** folder contains plugins to get started populating the central server with information that the dashboard will display as output.  
 
 **network-monitor.py**
+
 *This plugin will persist to the central data hub local network information such as your current upload and download speed in KBPS.*
 
 **Software Requirements:**
@@ -289,6 +294,7 @@ Configure and run the script:
 $  `nohup python network-monitor.py > network-monitor.out &`
 
 **server-monitor.py**
+
 *This plugin will persist to the central data hub local CPU usage and temperature statistics.*
 
 **Software Requirements:**
@@ -309,6 +315,7 @@ $  `nohup python server-monitor.py > server-monitor.out &`
 
 
 **DashboardPhone/**
+
 *This is a fully functional Android App that runs on your phone as a service and will persist to the central data hub notifications and indicator flags (coming soon).*
 
 **Configure the App**
