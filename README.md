@@ -276,6 +276,8 @@ This will allow you to logout of your PI and have the python drivers remain runn
 
 ##9 Running Plugins for Populating Display Data
 
+####(These plugins run on different machines of your choosing for the dashboard to then monitor them)
+
 The **'plugins/'** folder contains plugins to get started populating the central server with information that the dashboard will display as output.  
 
 **network-monitor.py**

@@ -16,19 +16,21 @@ def sendHTTPPOST(readingValue, readingNumber):
 # post network in / out in KBPS each 2 seconds to central hub
 print 'network monitor has started...'
 while True:
+    try:
+        # get local computer network stats from ifstat command
+        networkInfo = str(subprocess.check_output(['ifstat', '1', '1']))
+        networkInfo = networkInfo.replace("eth1", "")
+        networkInfo = networkInfo.replace("wlan1", "")
+        networkInfo = networkInfo.replace("tun0", "")
+        networkInfo = networkInfo.replace("KB/s in", "")
+        networkInfo = networkInfo.replace("KB/s out", "")
+        networkInfo = networkInfo.split()
 
-    # get local computer network stats from ifstat command
-    networkInfo = str(subprocess.check_output(['ifstat', '1', '1']))
-    networkInfo = networkInfo.replace("eth1", "")
-    networkInfo = networkInfo.replace("wlan1", "")
-    networkInfo = networkInfo.replace("tun0", "")
-    networkInfo = networkInfo.replace("KB/s in", "")
-    networkInfo = networkInfo.replace("KB/s out", "")
-    networkInfo = networkInfo.split()
-
-    # get the simple integer values and HTTP POST them to central hub
-    sendHTTPPOST(int(round(float(networkInfo[0]))), '1')
-    sendHTTPPOST(int(round(float(networkInfo[1]))), '2')
-    
+        # get the simple integer values and HTTP POST them to central hub
+        sendHTTPPOST(int(round(float(networkInfo[0]))), '1')
+        sendHTTPPOST(int(round(float(networkInfo[1]))), '2')
+    except:
+        pass
+        
     # sleep for 2 seconds
     time.sleep(2)

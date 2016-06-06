@@ -26,11 +26,11 @@ def initialize(display):
     """ start up the display with a the minimal brightness """
     display.begin()
     display.set_brightness(3)
-    
+
 def writeMessage(display, message):
     display.clear()
     display.print_str(message)
-    display.write_display() 
+    display.write_display()
 
 # prep displays and set brightness
 initialize(display1)
@@ -49,7 +49,7 @@ def showNewMessage(message):
         writeMessage(display1, message[pos:pos+4])
         writeMessage(display2, message[pos+4:pos+8])
         writeMessage(display3, message[pos+8:pos+12])
-        writeMessage(display4, message[pos+12:pos+16])        
+        writeMessage(display4, message[pos+12:pos+16])
         pos += 1
         showMessageIteration += 1
         if pos > len(message) - numberLEDCharacters:
@@ -67,17 +67,22 @@ def showStaticMessage(message):
 currentMessage = ''
 staticMessageCounter = 0
 while True:
-    phoneDashboardInfo = json.loads(unicode(subprocess.check_output(['curl', "http://" + dashboardServer + "/message"]), errors='ignore'))
-    message = str(phoneDashboardInfo["message"])
-    if (message != currentMessage):
-        currentMessage = message
-        showNewMessage(currentMessage)
-    else:
-        staticMessage = staticMessageCounter * " "
-        staticMessage = staticMessage + "-"
-        staticMessage = staticMessage + ((numberLEDCharacters - staticMessageCounter) * " ")
-        showStaticMessage(staticMessage)
-    staticMessageCounter += 1
-    if (staticMessageCounter >= numberLEDCharacters):
-        staticMessageCounter = 0
+
+    try:
+        phoneDashboardInfo = json.loads(unicode(subprocess.check_output(['curl', "http://" + dashboardServer + "/message"]), errors='ignore'))
+        message = str(phoneDashboardInfo["message"])
+        if (message != currentMessage):
+            currentMessage = message
+            showNewMessage(currentMessage)
+        else:
+            staticMessage = staticMessageCounter * " "
+            staticMessage = staticMessage + "-"
+            staticMessage = staticMessage + ((numberLEDCharacters - staticMessageCounter) * " ")
+            showStaticMessage(staticMessage)
+        staticMessageCounter += 1
+        if (staticMessageCounter >= numberLEDCharacters):
+            staticMessageCounter = 0
+    except:
+        pass
+
     time.sleep(2)

@@ -8,9 +8,9 @@ import string, cgi, subprocess, json
 from Adafruit_LED_Backpack import SevenSegment
 
 # setup the displays by colors
-blueDisplay = SevenSegment.SevenSegment(address=0x70, busnum=1) 
-yellowDisplay = SevenSegment.SevenSegment(address=0x71, busnum=1) 
-greenDisplay = SevenSegment.SevenSegment(address=0x72, busnum=1) 
+blueDisplay = SevenSegment.SevenSegment(address=0x70, busnum=1)
+yellowDisplay = SevenSegment.SevenSegment(address=0x71, busnum=1)
+greenDisplay = SevenSegment.SevenSegment(address=0x72, busnum=1)
 redDisplay = SevenSegment.SevenSegment(address=0x74, busnum=1)
 blinkDecimal = True
 
@@ -57,9 +57,10 @@ while(True):
         time.sleep(1)
 
     except:
-        # show the error state on the dashboard displays  
+        # show the error state on the dashboard displays
         setToError(yellowDisplay)
         setToError(blueDisplay)
         setToError(redDisplay)
-        setToError(greenDisplay)        
+        setToError(greenDisplay)
         time.sleep(2)
+
