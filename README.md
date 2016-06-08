@@ -111,7 +111,7 @@ Add the following lines to have your raspberrypi automatically connect to your h
 
 #Supplies Needed
 
-Raspberry PI
+Raspberry PI 2
 
 0.56" 4-Digit 7-Segment Display w/I2C Backpack (x4)
 
@@ -129,17 +129,20 @@ Wooden Keepsake Box
 
 ![Keepsake Box](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/keepsake.jpg "Keepsake Box")
 
+Hook and Eye
+![Hook and Eye](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/hook-and-eye.jpg "Hook and Eye")
+
 Dremel Tool with small saw blade
 
 Black Spray Paint
 
 #Building the Dashboard
 
-##1 Measure and Cut
+##1) Measure and Cut
 Measure and cut one long 4 - 14 segment display long hole near the top, 4 - 7 segment display individual holes in a square pattern and 4 LED sized holes in the lid of the wooden box.  I used a dremel tool with small saw for the square hole cuts and a regular drill for the LED holes.
 ![Measure and Cut](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/1-measure-cut.jpg "Measure and Cut")
 
-##2 Solder Unique Display Jumpers
+##2) Solder Unique Display Jumpers
 *NOTE: All the I2C backpacks must be soldered on the back of each of the displays, the backpacks come with the display and must all be soldered on first.*
 
 For each of the I2C backpack displays you must solder the jumpers on the back in the **all the possible combinations** to have your RaspberriPI I2C interface to recognize each display with a **unique address**.  
@@ -150,17 +153,17 @@ Leave the first display with no jumper soldered, the 2nd with the farthest right
 
 ![Solder Unique Display Jumpers](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/2-displays.jpg "Solder Unique Display Jumpers")
 
-##3 Mount Displays in box
+##3) Mount Displays in box
 Using a hot glue gun, mount the displays in the holes and glue them in place.  The LED lights may hold by friction if you drilled just the right sized hole, else use hot glue to hold them in place as well.
 ![Mount Displays](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/3-mount.jpg "Mount Displays")
 
 **NOTE: I have written down on the back of the box cover the HEX addresses x70 - x77 that each display has based on the soldering jumpers (see section #2)**
 
-##4 Cut RaspberryPI Access hole / glue in place
+##4) Cut RaspberryPI Access hole / glue in place
 Using the Dremel tool like I did or a small saw, cut a hole in the right side of the wooden box, closest to the back of the box.  Place the RaspberryPI with the USB connectors facing out next to the hole so they're accessible after you've closed the box, and hot glue the RaspberryPI in place.
 ![Glue Raspberry PI](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/4-raspberry-pi.jpg "Glue Raspberry PI")
 
-##5 Wiring all Displays
+##5) Wiring all Displays
 
 Each of the 14 segment alpha numeric displays needs to have a connection to the RaspberryPI GND, 5V and 3V pins.  The 7 segment display only needs connectivity to the GND and 5V pins.  
 
@@ -174,19 +177,30 @@ For each display in the dashboard ALL of the D and C pins need to be connected t
 
 ![Wire all Displays](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/5-wire.jpg "Wire all Displays")
 
-##6 Finished
+##6) Finished (Final Touches)
+
+**Add a hook and eye to close the box on the top**
+
+![Hook on Top](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/hook-on-top.jpg "Hook on Top")
+
+**Cut a hole for the USB power cable to enter the box and power the RaspberryPI**
+*Note: because this has external USB ports, this dashboard doubles as a charging station for other devices as well!*
+
+![Power and Charging](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/power-and-charging.jpg "Power and Charging")
+
+
 You're now ready to run the Dashboard!
 
 ![Finished](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/6-final.jpg "Finished")
 
-##7 Install Central Webhost 
+##7) Install Central Webhost 
 This project includes a small PHP server that you can host on almost any low cost linux webhost.  From this project copy the files from the "server/" folder and place them on your PHP webhost and remember the domain name.  
 > For our example it will be installed on a hypothetical host with the public domain name of: www.mydashboard.com
 
 The **server/README.md** file contains all the details about how to get/set message values, measurement values and flag values to the PHP server.  These values will then be listened for on the Retrodashboard to display to you as output via the alphanumeric / numeric and led lights turning on and off.
 
 
-##8 Install & Run Dashboard Drivers
+##8) Install & Run Dashboard Drivers
 
 Start up your RaspberryPi and make sure the I2C bus recognizes all your connected 7/14 segment displays. 
 *[each display is given a unique address described above by how you solder each display's jumpers in different combinations]*  
@@ -274,7 +288,7 @@ $  `nohup python alphanum.py > alphanum.out &`
 
 This will allow you to logout of your PI and have the python drivers remain running as a background process, if they do fail for any reason, the error message will be found in the [.out] from the commands above.
 
-##9 Running Plugins for Populating Display Data
+##9) Running Plugins for Populating Display Data
 
 ####(These plugins run on different machines of your choosing for the dashboard to then monitor them)
 
