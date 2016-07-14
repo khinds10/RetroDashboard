@@ -130,6 +130,7 @@ Wooden Keepsake Box
 ![Keepsake Box](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/keepsake.jpg "Keepsake Box")
 
 Hook and Eye
+
 ![Hook and Eye](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/hook-and-eye.jpg "Hook and Eye")
 
 Dremel Tool with small saw blade
@@ -184,6 +185,7 @@ For each display in the dashboard ALL of the D and C pins need to be connected t
 ![Hook on Top](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/hook-on-top.jpg "Hook on Top")
 
 **Cut a hole for the USB power cable to enter the box and power the RaspberryPI**
+
 *Note: because this has external USB ports, this dashboard doubles as a charging station for other devices as well!*
 
 ![Power and Charging](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/power-and-charging.jpg "Power and Charging")
