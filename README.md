@@ -203,14 +203,14 @@ The **server/README.md** file contains all the details about how to get/set mess
 ##8) Install & Run Dashboard Drivers
 
 Start up your RaspberryPi and make sure the I2C bus recognizes all your connected 7/14 segment displays. 
-*[each display is given a unique address described above by how you solder each display's jumpers in different combinations]*  
+*[each display is given a unique address described above by how you solder each display's jumpers in different combinations]*
 
 If you have all 8 displays with jumpers soldered in all 8 combinations, you should have the following output for the `i2cdetect` command:
 
 `sudo i2cdetect -y 1`
      
 >    0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
->     
+>
 > 00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
 > 
 > 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
@@ -225,7 +225,7 @@ If you have all 8 displays with jumpers soldered in all 8 combinations, you shou
 > 
 > 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 > 
-> 70: 70 71 72 73 74 75 76 77   
+> 70: 70 71 72 73 74 75 76 77
 
 
 *(in this case all the displays numbered 0 to 7 are being recognized on the PI as I2C available devices)*
@@ -288,11 +288,21 @@ $  `nohup python alphanum.py > alphanum.out &`
 
 This will allow you to logout of your PI and have the python drivers remain running as a background process, if they do fail for any reason, the error message will be found in the [.out] from the commands above.
 
+**Run Displays at system startup**
+
+Place the following entries in the Dashboard crontab to have it run the scripts on system start/reboot.  Note: logging to [.out] files has been supressed in this case to /dev/null if you have any errors occuring.
+
+$ `crontab -e`
+
+`@reboot nohup python /home/pi/indicators.py >/dev/null 2>&1`
+`@reboot nohup python /home/pi/dashboard.py >/dev/null 2>&1`
+`@reboot nohup python /home/pi/alphanum.py >/dev/null 2>&1`
+
 ##9) Running Plugins for Populating Display Data
 
 ####(These plugins run on different machines of your choosing for the dashboard to then monitor them)
 
-The **'plugins/'** folder contains plugins to get started populating the central server with information that the dashboard will display as output.  
+The **'plugins/'** folder contains plugins to get started populating the central server with information that the dashboard will display as output.
 
 **network-monitor.py**
 
@@ -347,4 +357,3 @@ You need to update the settings.java file with your local settings
 **Build the App**
 
 Using an Android IDE, import the project locally and build it to an APK file.  Install the APK on your phone locally and it should start working for you.
-
