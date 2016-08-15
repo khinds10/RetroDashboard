@@ -98,8 +98,18 @@ Add the following lines to have your raspberrypi automatically connect to your h
 >`vi ~/.bashrc`
 >
 >*add the following line:*
+>
 >`alias l='ls -lh'`
+>
 >`source ~/.bashrc`
+
+**Fix VIM default syntax highlighting [optional]**
+
+>`sudo vi  /etc/vim/vimrc`
+>
+>uncomment the following line:
+>
+>_syntax on_
 
 **Install i2c Backpack Python Drivers**
 
