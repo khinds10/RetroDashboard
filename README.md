@@ -90,8 +90,15 @@ Add the following lines to have your raspberrypi automatically connect to your h
 **Start Installing required packages**
 
 >$ `sudo apt-get update`
+>$ `sudo apt-get upgrade`
 >
 >$ `sudo apt-get install vim git python-smbus i2c-tools python-imaging python-smbus build-essential python-dev rpi.gpio python3 python3-pip`
+
+**Update local timezone settings
+
+>$ `sudo dpkg-reconfigure tzdata`
+
+`select your timezone using the interface`
 
 **Setup the simple directory `l` command [optional]**
 
