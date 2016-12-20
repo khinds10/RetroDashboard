@@ -9,9 +9,9 @@ from Adafruit_LED_Backpack import AlphaNum4
 
 # Setup pins and initialize all the displays
 display1 = AlphaNum4.AlphaNum4(address=0x77, busnum=1)
-display2 = AlphaNum4.AlphaNum4(address=0x76, busnum=1)
-display3 = AlphaNum4.AlphaNum4(address=0x75, busnum=1)
-display4 = AlphaNum4.AlphaNum4(address=0x73, busnum=1)
+display2 = AlphaNum4.AlphaNum4(address=0x75, busnum=1)
+display3 = AlphaNum4.AlphaNum4(address=0x73, busnum=1)
+display4 = AlphaNum4.AlphaNum4(address=0x76, busnum=1)
 
 # dashboard central server host
 dashboardServer = 'MY-SERVER-HERE.com'
@@ -84,5 +84,5 @@ while True:
             staticMessageCounter = 0
     except:
         pass
-
+        
     time.sleep(2)

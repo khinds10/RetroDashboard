@@ -8,9 +8,7 @@ import string, cgi, subprocess, json
 from Adafruit_LED_Backpack import SevenSegment
 
 # setup the displays by colors
-blueDisplay = SevenSegment.SevenSegment(address=0x70, busnum=1)
-yellowDisplay = SevenSegment.SevenSegment(address=0x71, busnum=1)
-greenDisplay = SevenSegment.SevenSegment(address=0x72, busnum=1)
+yellowDisplay = SevenSegment.SevenSegment(address=0x71, busnum=1) 
 redDisplay = SevenSegment.SevenSegment(address=0x74, busnum=1)
 blinkDecimal = True
 
@@ -36,10 +34,8 @@ def setToError(display):
     display.write_display()
 
 # initialize the displays
-initialize(greenDisplay)
 initialize(redDisplay)
 initialize(yellowDisplay)
-initialize(blueDisplay)
 
 # start the dashboard
 while(True):
@@ -47,20 +43,15 @@ while(True):
 
         # get all 4 readings
         readingsInfo = json.loads(subprocess.check_output(['curl', "http://" + dashboardServer + "/reading/all"]))
-        setReadingValue(yellowDisplay, int(readingsInfo['message'][0]), blinkDecimal)
-        setReadingValue(blueDisplay, int(readingsInfo['message'][1]), blinkDecimal)
-        setReadingValue(redDisplay, int(readingsInfo['message'][2]), blinkDecimal)
-        setReadingValue(greenDisplay, int(readingsInfo['message'][3]), blinkDecimal)
+        setReadingValue(redDisplay, int(readingsInfo['message'][0]), blinkDecimal)
+        setReadingValue(yellowDisplay, int(readingsInfo['message'][1]), blinkDecimal)
 
         # invert the decimal blinking value and wait 2 seconds
         blinkDecimal = not blinkDecimal
         time.sleep(1)
 
     except:
-        # show the error state on the dashboard displays
+        # show the error state on the dashboard displays  
         setToError(yellowDisplay)
-        setToError(blueDisplay)
         setToError(redDisplay)
-        setToError(greenDisplay)
         time.sleep(2)
-

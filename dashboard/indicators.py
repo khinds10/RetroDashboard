@@ -5,11 +5,11 @@
 
 import time, json
 import string, cgi, subprocess, json
-import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO  
 
-# to use Raspberry Pi board pin numbers
+# to use Raspberry Pi board pin numbers  
 GPIO.setmode(GPIO.BOARD)
-
+ 
 # set up GPIO output channel
 GPIO.setup(18, GPIO.OUT)
 GPIO.output(18,GPIO.LOW)
