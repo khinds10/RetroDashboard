@@ -1,5 +1,6 @@
 #DashboardPI - Retro Display Dashboard
-![Final Construction](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/6-final.jpg "Final Construction")
+![Final Construction](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/running1.jpg "Final Construction")
+![Final Construction](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/running2.jpg "Final Construction")
 
 ####Flashing RaspberriPi Hard Disk / Install Required Software (Using Ubuntu Linux)
 
@@ -90,6 +91,7 @@ Add the following lines to have your raspberrypi automatically connect to your h
 **Start Installing required packages**
 
 >$ `sudo apt-get update`
+>
 >$ `sudo apt-get upgrade`
 >
 >$ `sudo apt-get install vim git python-smbus i2c-tools python-imaging python-smbus build-essential python-dev rpi.gpio python3 python3-pip`
@@ -128,9 +130,11 @@ Add the following lines to have your raspberrypi automatically connect to your h
 
 #Supplies Needed
 
-Raspberry PI 2
+Raspberry PI or Pi Zero
 
-0.56" 4-Digit 7-Segment Display w/I2C Backpack (x4)
+![PiZero](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/pizero.jpg "PiZero")
+
+0.56" 4-Digit 7-Segment Display w/I2C Backpack (x2)
 
 ![7 Segment Display](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/7-segment.jpg "7 Segment Display")
 
@@ -142,23 +146,15 @@ LED Lights (x4)
 
 ![LED Lights](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/led.jpg "LED Lights")
 
-Wooden Keepsake Box
-
-![Keepsake Box](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/keepsake.jpg "Keepsake Box")
-
-Hook and Eye
-
-![Hook and Eye](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/hook-and-eye.jpg "Hook and Eye")
-
-Dremel Tool with small saw blade
-
-Black Spray Paint
 
 #Building the Dashboard
 
-##1) Measure and Cut
-Measure and cut one long 4 - 14 segment display long hole near the top, 4 - 7 segment display individual holes in a square pattern and 4 LED sized holes in the lid of the wooden box.  I used a dremel tool with small saw for the square hole cuts and a regular drill for the LED holes.
-![Measure and Cut](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/1-measure-cut.jpg "Measure and Cut")
+##1) Using a 3d printer, print the cover, box and back panels
+
+Using the following 3 STL files in the `/construction/3D Print/` folder, print out the cover, box and back of the case to assemble.
+>Dashboard-cover.stl
+>Dashboard-box.stl
+>Dashboard-back.stl
 
 ##2) Solder Unique Display Jumpers
 *NOTE: All the I2C backpacks must be soldered on the back of each of the displays, the backpacks come with the display and must all be soldered on first.*
@@ -169,21 +165,16 @@ Leave the first display with no jumper soldered, the 2nd with the farthest right
 
 *There's a total of 3 pins so you should have a total combination of 8 unique combinations.*
 
-![Solder Unique Display Jumpers](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/2-displays.jpg "Solder Unique Display Jumpers")
+![Solder Unique Display Jumpers](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/displays.jpg "Solder Unique Display Jumpers")
 
 ##3) Mount Displays in box
-Using a hot glue gun, mount the displays in the holes and glue them in place.  The LED lights may hold by friction if you drilled just the right sized hole, else use hot glue to hold them in place as well.
-![Mount Displays](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/3-mount.jpg "Mount Displays")
+Using a hot glue gun, mount the displays in the holes and glue them in place.  The LED lights may hold by friction from the 3D printed design, else use hot glue to hold them in place as well.
 
 **NOTE: I have written down on the back of the box cover the HEX addresses x70 - x77 that each display has based on the soldering jumpers (see section #2)**
 
-##4) Cut RaspberryPI Access hole / glue in place
-Using the Dremel tool like I did or a small saw, cut a hole in the right side of the wooden box, closest to the back of the box.  Place the RaspberryPI with the USB connectors facing out next to the hole so they're accessible after you've closed the box, and hot glue the RaspberryPI in place.
-![Glue Raspberry PI](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/4-raspberry-pi.jpg "Glue Raspberry PI")
+##4) Wiring all Displays
 
-##5) Wiring all Displays
-
-Each of the 14 segment alpha numeric displays needs to have a connection to the RaspberryPI GND, 5V and 3V pins.  The 7 segment display only needs connectivity to the GND and 5V pins.  
+Each of the 14 segment alpha numeric displays needs to have a connection to the RaspberryPI GND, 5V and 3V pins.  The 7 segment display only needs connectivity to the GND and 5V pins.
 
 ![Wiring Diagram](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/wiring-diagram.png "Wiring Diagram")
 
@@ -193,24 +184,15 @@ Each LED light needs to have a 270 ohm resister solder to the ground (short) pin
 
 For each display in the dashboard ALL of the D and C pins need to be connected to the SCL and SDA pins on the PI.
 
-![Wire all Displays](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/5-wire.jpg "Wire all Displays")
+![Mount Displays](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/wiring.jpg "Mount Displays")
+##5) Finished (Final Touches)
 
-##6) Finished (Final Touches)
+**Screw the front cover and back panel to the main box**
 
-**Add a hook and eye to close the box on the top**
-
-![Hook on Top](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/hook-on-top.jpg "Hook on Top")
-
-**Cut a hole for the USB power cable to enter the box and power the RaspberryPI**
-
-*Note: because this has external USB ports, this dashboard doubles as a charging station for other devices as well!*
-
-![Power and Charging](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/power-and-charging.jpg "Power and Charging")
-
+![Front](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/assembled.jpg "Front")
+![Back](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/back.jpg "back")
 
 You're now ready to run the Dashboard!
-
-![Finished](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/6-final.jpg "Finished")
 
 ##7) Install Central Webhost 
 This project includes a small PHP server that you can host on almost any low cost linux webhost.  From this project copy the files from the "server/" folder and place them on your PHP webhost and remember the domain name.  
