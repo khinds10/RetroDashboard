@@ -1,8 +1,8 @@
-#DashboardPI - Retro Display Dashboard
+# DashboardPI - Retro Display Dashboard
 ![Final Construction](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/running1.jpg "Final Construction")
 ![Final Construction](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/running2.jpg "Final Construction")
 
-####Flashing RaspberriPi Hard Disk / Install Required Software (Using Ubuntu Linux)
+#### Flashing RaspberriPi Hard Disk / Install Required Software (Using Ubuntu Linux)
 
 Download "RASPBIAN JESSIE LITE"
 https://www.raspberrypi.org/downloads/raspbian/
@@ -128,7 +128,7 @@ Add the following lines to have your raspberrypi automatically connect to your h
 
 >$ `sudo python setup.py install`
 
-#Supplies Needed
+# Supplies Needed
 
 Raspberry PI or Pi Zero
 
@@ -147,16 +147,16 @@ LED Lights (x4)
 ![LED Lights](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/led.jpg "LED Lights")
 
 
-#Building the Dashboard
+# Building the Dashboard
 
-##1) Using a 3d printer, print the cover, box and back panels
+## 1) Using a 3d printer, print the cover, box and back panels
 
 Using the following 3 STL files in the `/construction/3D Print/` folder, print out the cover, box and back of the case to assemble.
 >Dashboard-cover.stl
 >Dashboard-box.stl
 >Dashboard-back.stl
 
-##2) Solder Unique Display Jumpers
+## 2) Solder Unique Display Jumpers
 *NOTE: All the I2C backpacks must be soldered on the back of each of the displays, the backpacks come with the display and must all be soldered on first.*
 
 For each of the I2C backpack displays you must solder the jumpers on the back in the **all the possible combinations** to have your RaspberriPI I2C interface to recognize each display with a **unique address**.  
@@ -167,12 +167,12 @@ Leave the first display with no jumper soldered, the 2nd with the farthest right
 
 ![Solder Unique Display Jumpers](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/displays.jpg "Solder Unique Display Jumpers")
 
-##3) Mount Displays in box
+## 3) Mount Displays in box
 Using a hot glue gun, mount the displays in the holes and glue them in place.  The LED lights may hold by friction from the 3D printed design, else use hot glue to hold them in place as well.
 
 **NOTE: I have written down on the back of the box cover the HEX addresses x70 - x77 that each display has based on the soldering jumpers (see section #2)**
 
-##4) Wiring all Displays
+## 4) Wiring all Displays
 
 Each of the 14 segment alpha numeric displays needs to have a connection to the RaspberryPI GND, 5V and 3V pins.  The 7 segment display only needs connectivity to the GND and 5V pins.
 
@@ -185,7 +185,7 @@ Each LED light needs to have a 270 ohm resister solder to the ground (short) pin
 For each display in the dashboard ALL of the D and C pins need to be connected to the SCL and SDA pins on the PI.
 
 ![Mount Displays](https://raw.githubusercontent.com/khinds10/RetroDashboard/master/construction/wiring.jpg "Mount Displays")
-##5) Finished (Final Touches)
+## 5) Finished (Final Touches)
 
 **Screw the front cover and back panel to the main box**
 
@@ -194,14 +194,14 @@ For each display in the dashboard ALL of the D and C pins need to be connected t
 
 You're now ready to run the Dashboard!
 
-##7) Install Central Webhost 
+## 7) Install Central Webhost 
 This project includes a small PHP server that you can host on almost any low cost linux webhost.  From this project copy the files from the "server/" folder and place them on your PHP webhost and remember the domain name.  
 > For our example it will be installed on a hypothetical host with the public domain name of: www.mydashboard.com
 
 The **server/README.md** file contains all the details about how to get/set message values, measurement values and flag values to the PHP server.  These values will then be listened for on the Retrodashboard to display to you as output via the alphanumeric / numeric and led lights turning on and off.
 
 
-##8) Install & Run Dashboard Drivers
+## 8) Install & Run Dashboard Drivers
 
 Start up your RaspberryPi and make sure the I2C bus recognizes all your connected 7/14 segment displays. 
 *[each display is given a unique address described above by how you solder each display's jumpers in different combinations]*
@@ -299,9 +299,9 @@ $ `crontab -e`
 `@reboot nohup python /home/pi/dashboard.py >/dev/null 2>&1`
 `@reboot nohup python /home/pi/alphanum.py >/dev/null 2>&1`
 
-##9) Running Plugins for Populating Display Data
+## 9) Running Plugins for Populating Display Data
 
-####(These plugins run on different machines of your choosing for the dashboard to then monitor them)
+#### (These plugins run on different machines of your choosing for the dashboard to then monitor them)
 
 The **'plugins/'** folder contains plugins to get started populating the central server with information that the dashboard will display as output.
 
