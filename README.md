@@ -339,7 +339,7 @@ Run pensor server on port 17510, then run the server monitor script:
 
 $ `nohup psensor-server -p 17510 > /dev/null 2>&1`
 
-$  `nohup python server-monitor.py > server-monitor.out &`
+$ `nohup python server-monitor.py > server-monitor.out &`
 
 
 **DashboardPhone/**
@@ -358,3 +358,63 @@ You need to update the settings.java file with your local settings
 **Build the App**
 
 Using an Android IDE, import the project locally and build it to an APK file.  Install the APK on your phone locally and it should start working for you.
+
+
+**PushBullet/**
+
+*Using the pushbullet app for your phone, signup to recieve an API key to have a simple python script be able to capture and push data hub notifications and indicator flags*
+
+Install Python 3.5 for asyncio functionality
+
+	sudo apt-get update
+	sudo apt-get install build-essential tk-dev
+	sudo apt-get install libncurses5-dev libncursesw5-dev libreadline6-dev
+	sudo apt-get install libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev
+	sudo apt-get install libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev
+
+If one of the packages cannot be found, try a newer version number (e.g. libdb5.4-dev instead of libdb5.3-dev).
+
+	wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tgz
+	tar zxvf Python-3.5.2.tgz
+	cd Python-3.5.2
+	./configure --prefix=/usr/local/opt/python-3.5.2
+	make
+	sudo make install
+	sudo ln -s /usr/local/opt/python-3.5.2/bin/pydoc3.5 /usr/bin/pydoc3.5
+	sudo ln -s /usr/local/opt/python-3.5.2/bin/python3.5 /usr/bin/python3.5
+	sudo ln -s /usr/local/opt/python-3.5.2/bin/python3.5m /usr/bin/python3.5m
+	sudo ln -s /usr/local/opt/python-3.5.2/bin/pyvenv-3.5 /usr/bin/pyvenv-3.5
+	sudo ln -s /usr/local/opt/python-3.5.2/bin/pip3.5 /usr/bin/pip3.5
+	cd ~
+	echo 'alias python35="/usr/local/opt/python-3.5.2/bin/python3.5"' >> .bashrc
+	echo 'alias idle35="/usr/local/opt/python-3.5.2/bin/python3.5"' >> .bashrc
+
+Install the python3 dependancies
+
+	sudo apt-get install python3-setuptools
+	sudo apt-get install python3-pip
+	pip3 install asyncpushbullet
+
+*Optional way* Download the python repository directly to obtain the python dependancies without the use of pip installing it
+
+    git clone https://github.com/rharder/asyncpushbullet
+    cd asyncpushbullet && sudo /usr/local/opt/python-3.5.2/bin/python3.5 setup.py install
+
+Copy the `PushBullet/` folder of the dashboard `plugins/` from this project to the dashboard pi.
+
+Visit the pushbullet settings page in your account to generate an API key to use
+https://www.pushbullet.com/#settings
+
+Configure your `pushbullet-listener.py` script to have the correct API and dashboard central host
+
+	# your API Key from PushBullet.com
+	API_KEY = "o.XXXYYYZZZ111222333444555666"
+
+	# dashboard central server host
+	dashboardServer = 'MY-SERVER-HERE.com'
+
+Add the script to start at dashboard boot and restart your dashboard pi
+
+$ `crontab -e`
+
+`@reboot nohup python /home/pi/PushBullet/pushbullet-listener.py >/dev/null 2>&1`

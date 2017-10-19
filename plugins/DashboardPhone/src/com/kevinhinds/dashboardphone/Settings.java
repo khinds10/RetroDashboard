@@ -11,5 +11,5 @@ public class Settings {
 	public static String remoteDashboardHost = "YOUR-SERVER-HERE.com";
 
 	// create a list of notifications (by title) your phone always produces but don't need to broadcast
-	public static String[] ignoredNotifications = new String[] { "Privacy Guard active", "Change keyboard" };
+	public static String[] ignoredNotifications = new String[] { "Privacy Guard active", "Change keyboard", "Select keyboard", "Calls will be made" };
 }

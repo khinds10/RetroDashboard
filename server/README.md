@@ -1,9 +1,9 @@
-#RetroDashboard Central Data Hub
+# RetroDashboard Central Data Hub
 
 The following criteria will explain how to get information to output on your RetroDashboard as well as set it from various "plugins" you can write on your own.
 *This is a small PHP script to place on a webhost of your choosing.  It has the following API to get and set information to it. Note: don't forget to include the .htaccess file for proper URL routing to take place.*
 
-##API
+## API
 
 	http://myhost/message
 		(get the current message set)
@@ -39,7 +39,7 @@ The 'readings' values are calculated as averages of a certain number of recent p
 
 ***$readingsAverageLimit = 5;***
 
-##Datastore	
+## Datastore	
 Server will persist values to simple files located by naming conventions below. Note: {id} will be replaced by the real integer presented by the incoming request's URL.
 
 	$valueFileFolder = 'values' (name of the folder to contain the measurement files)
