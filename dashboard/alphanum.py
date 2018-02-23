@@ -4,7 +4,7 @@
 # @license http://opensource.org/licenses/gpl-license.php GNU Public License
 
 import time, json
-import string, cgi, subprocess, json
+import string, cgi, subprocess, json, datetime
 from Adafruit_LED_Backpack import AlphaNum4
 
 # Setup pins and initialize all the displays
@@ -54,7 +54,7 @@ def showNewMessage(message):
         showMessageIteration += 1
         if pos > len(message) - numberLEDCharacters:
             pos = 0
-        time.sleep(0.175)
+        time.sleep(0.1)
 
 def showStaticMessage(message):
     '''show static waiting message'''
@@ -67,7 +67,6 @@ def showStaticMessage(message):
 currentMessage = ''
 staticMessageCounter = 0
 while True:
-
     try:
         phoneDashboardInfo = json.loads(unicode(subprocess.check_output(['curl', "http://" + dashboardServer + "/message"]), errors='ignore'))
         message = str(phoneDashboardInfo["message"])
@@ -75,13 +74,8 @@ while True:
             currentMessage = message
             showNewMessage(currentMessage)
         else:
-            staticMessage = staticMessageCounter * " "
-            staticMessage = staticMessage + "-"
-            staticMessage = staticMessage + ((numberLEDCharacters - staticMessageCounter) * " ")
-            showStaticMessage(staticMessage)
-        staticMessageCounter += 1
-        if (staticMessageCounter >= numberLEDCharacters):
-            staticMessageCounter = 0
+            d = datetime.datetime.now()
+            showStaticMessage(d.strftime("%a%b%d %I%M %p"))
     except:
         pass
         

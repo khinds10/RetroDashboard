@@ -418,3 +418,13 @@ Add the script to start at dashboard boot and restart your dashboard pi
 $ `crontab -e`
 
 `@reboot nohup python /home/pi/PushBullet/pushbullet-listener.py >/dev/null 2>&1`
+
+*Optional Date and Time Output* - instead of having internet upload/download speed use the following script to show the date and time instead
+
+In the Crontab Change:
+
+`@reboot nohup python /home/pi/dashboard.py >/dev/null 2>&1`
+
+to: 
+
+`@reboot nohup python /home/pi/date-time.py >/dev/null 2>&1`
