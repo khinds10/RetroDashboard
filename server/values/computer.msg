@@ -1,0 +1,1 @@
+{'HTML': '{"totalMemory_gigs": "48", "hardrive_files_temp_f": "141", "network_bandwidth_bytes": "3072", "usedMemory_gigs": "8", "hardrive_temp_f": "120", "cpu_percent": "7.58", "freeMemory_gigs": "26", "cpu_temp": "109"}'}

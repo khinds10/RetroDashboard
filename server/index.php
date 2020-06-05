@@ -14,9 +14,7 @@
  * @param $fileName
  */
 function createFileIfMissing($fileName) {
-	if (!file_exists($fileName)) {
-		touch($fileName);
-	}
+	if (!file_exists($fileName)) touch($fileName);
 }
 
 /**
@@ -46,9 +44,7 @@ function generateFileById($fileNameTemplate, $id) {
  */
 function getValueOrDefault($fileName, $default) {
 	$value = file_get_contents($fileName);
-	if (empty($value)) {
-		$value = $default;
-	}
+	if (empty($value)) $value = $default;
 	return $value;
 }
 
@@ -62,9 +58,7 @@ function getValueOrDefault($fileName, $default) {
 function getAverageOrDefault($fileName, $readingsAverageLimit, $default) {
 	$valuesArray = preg_split("/,/", getValueOrDefault($fileName, $default));
 	$total = 0;
-	foreach ($valuesArray as $value) {
-		$total += $value;
-	}
+	foreach ($valuesArray as $value) $total += $value;
 	return round($total/$readingsAverageLimit, 0);
 }
 
@@ -76,6 +70,7 @@ $response->message = 'error: invalid request';
 // define file names to set for values on the server
 $valueFileFolder = 'values';
 $messageFileName = $valueFileFolder.'/message.msg';
+$computerFileName = $valueFileFolder.'/computer.msg';
 $readingsFilesNames = $valueFileFolder.'/reading{id}.avg';
 $flagFilesNames = $valueFileFolder.'/flag{id}.flg';
 
@@ -90,33 +85,36 @@ $urlParts = parse_url("http://{$urlHost}{$requestURI}");
 // get dashboard option
 preg_match('/\/[a-zA-Z]+\/?/', $urlParts['path'], $matches);
 $dashboardOption = '';
-if (isset($matches[0])) {
-	$dashboardOption = trim($matches[0], '/');
-}
+if (isset($matches[0])) $dashboardOption = trim($matches[0], '/');
 
 // get id number for reading or flag if present
 preg_match('/\/[0-9]\/?/', $urlParts['path'], $matches);
 $idNumber = 0;
-if (isset($matches[0])) {
-	$idNumber = trim($matches[0], '/');
-}
+if (isset($matches[0])) $idNumber = trim($matches[0], '/');
 
 // if we have a 'all' matched in the URL means, we should get ALL results for flag/reading
 $getAll = false;
 preg_match('/all/', $urlParts['path'], $matches);
-if (isset($matches[0])) {
-	$getAll = true;
-}
+if (isset($matches[0])) $getAll = true;
 
 // get action value 'set'/'unset' for reading or flag if present
 preg_match('/\/(set)|(unset)\/?/', $urlParts['path'], $matches);
 $action = '';
-if (isset($matches[0])) {
-	$action = trim($matches[0], '/');
-}
+if (isset($matches[0])) $action = trim($matches[0], '/');
 
 // switch on the type of incoming request
 switch ($dashboardOption) {
+
+    case 'computer':
+    
+	    createFileIfMissing($computerFileName);
+		if ($action == 'set') {
+			file_put_contents($computerFileName, file_get_contents("php://input"));
+			$response->message = 'computer performance contents has been updated';
+			break;
+		}
+		$response->message = getValueOrDefault($computerFileName, '');
+        break;
 
     case 'message':
     
