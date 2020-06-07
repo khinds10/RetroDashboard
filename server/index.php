@@ -63,7 +63,6 @@ function getAverageOrDefault($fileName, $readingsAverageLimit, $default) {
 }
 
 // set the basic JSON response with the default response object
-header('Content-type: application/json');
 $response = new stdClass();
 $response->message = 'error: invalid request';
 
@@ -104,6 +103,10 @@ if (isset($matches[0])) $action = trim($matches[0], '/');
 
 // switch on the type of incoming request
 switch ($dashboardOption) {
+
+    case 'cpu':
+        include 'cpu.php';
+        exit();
 
     case 'computer':
     
@@ -180,4 +183,5 @@ switch ($dashboardOption) {
 		}
         break;
 }
+header('Content-type: application/json');
 print json_encode($response);
